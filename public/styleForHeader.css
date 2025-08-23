@@ -1,0 +1,249 @@
+/* Header and Navigation Styles */
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.user {
+    background-color: none;
+    text-decoration: none;
+    color: #fff;
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.nav-actions .search-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #4cc9f0, #4361ee);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(76, 201, 240, 0.4);
+}
+
+.logo-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.shopName {
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, #4cc9f0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0.8rem;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #4cc9f0, #4361ee);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-link:hover, 
+.nav-link.active {
+    color: #fff;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: calc(100% - 1.6rem);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.search-btn,
+.cart-btn,
+.mobile-menu-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.search-btn:hover,
+.cart-btn:hover,
+.mobile-menu-btn:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.cart-btn {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: linear-gradient(135deg, #f72585, #7209b7);
+    color: white;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.cart-form {
+    margin: 0;
+}
+
+.mobile-menu-btn {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    /* Mobile menu when active */
+    .nav-menu.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(26, 26, 46, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 0;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-menu.active .nav-item {
+        width: 100%;
+    }
+    
+    .nav-menu.active .nav-link {
+        display: block;
+        padding: 0.8rem 2rem;
+    }
+    
+    .nav-menu.active .nav-link::after {
+        left: 2rem;
+    }
+    
+    .nav-menu.active .nav-link:hover::after,
+    .nav-menu.active .nav-link.active::after {
+        width: calc(100% - 4rem);
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 1rem;
+    }
+    
+    .shopName {
+        font-size: 1.1rem;
+    }
+    
+    .logo-icon {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .logo-icon i {
+        font-size: 1.2rem;
+    }
+    
+    .nav-actions {
+        gap: 0.5rem;
+    }
+}

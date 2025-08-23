@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleForDetail.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title><%= product.ten_san_pham || 'Chi tiết sản phẩm' %></title>
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <section class="detail-content">
+        <div class="container">
+            <h2 class="product_name"><%= product.ten_san_pham %></h2>
+            <div class="pic-function">
+                <img src="<%= product.hinh_anh || '/pics/default.jpg' %>" alt="<%= product.ten_san_pham %>" class="phone-image">
+                <div class="impressFunction"> 
+                    <div class="title-wrapper">
+                        <i class="fa-solid fa-fire"></i>
+                        <h2 class="title">Thông tin nổi bật</h2>
+                    </div>
+                    <ul class="list-details">
+                        <% if(product.tinh_nang_noi_bat) { %>
+                            <% const features = product.tinh_nang_noi_bat.split(','); %>
+                            <% features.forEach(feature => { %>
+                                <li class="feature-item">
+                                    <i class="fa-solid fa-check"></i>
+                                    <span class="detail"><%= feature.trim() %></span>
+                                </li>
+                            <% }); %>
+                        <% } else { %>
+                            <li class="feature-item">
+                                <i class="fa-solid fa-circle-info"></i>
+                                <span class="detail">Không có thông tin nổi bật</span>
+                            </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+            <div class="buying">
+                <form action="/buy" method="POST">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="product_id" value="<%= product.ma_san_pham %>">
+                    <button type="submit" class="buy_right_away">Buy</button>
+                </form>
+                <form action="/add_to_shopping_cart" method="POST">
+                    <input type="hidden" name="product_id" value="<%= product.ma_san_pham %>">
+                    <button type="submit" class="add_to_shopping_cart"><i class="fa-solid fa-cart-arrow-down"></i></button>
+                </form>
+                <form action="/evaluation" method="POST">
+                    <input type="hidden" name="quantity">
+                    <button type="submit" class="buy_right_away">Rate</button>
+                </form>
+            </div>
+            <div class="detail-availableStore">
+                <div class="detailInformation">
+                    <h2 class="title">Thông tin chi tiết</h2>
+                    <ul class="list-detail">
+                        <li class="detail"><%= product.mo_ta || 'Không có thông tin chi tiết' %></li>
+                        <li class="detail">Giá: <%= product.gia.toLocaleString('vi-VN') %> ₫</li>
+                        <li class="detail">Thương hiệu: <%= product.thuong_hieu || 'Chưa cập nhật' %></li>
+                        <li class="detail">Loại sản phẩm: <%= category ? category.ten_loai : 'Không xác định' %></li>
+                    </ul>
+                </div>
+                <div class="availableStore">
+                    <h2 class="title">Sản phẩm có tại</h2>
+                    <ul class="list-item">
+                    <% if(product.cua_hang_co_san) { %>
+                        <% const stores = product.cua_hang_co_san.split(','); %>
+                        <% stores.forEach(store => { %>
+                             <li class="detail"><%= store.trim() %></li>
+                        <% }); %>
+                    <% } else { %>
+                        <li class="detail">Liên hệ để biết thêm thông tin</li>
+                    <% } %>
+                    </ul>
+                </div>
+            </div>
+            <section class="evaluation">
+                <h2 class="title">Đánh giá sản phẩm</h2>
+                    <div class="container-evaluation">
+                        <% if(evaluations && evaluations.length > 0) { %>
+                            <% evaluations.forEach(item => { %>
+                                <div class=" evaluation-item">
+                                    <div class="nameAndIcon">
+                                        <i class="fa-solid fa-user icon"></i>
+                                        <h2 class="nameUser name"><%= item.ten_nguoi_gui %></h2>
+                                    </div>
+                                        <p class="content-evaluation">Đánh giá: <%= item.noi_dung %></p>
+                                        <p class="rating">Số sao: <%= item.so_sao %></p>
+                                        <p class="date"> <%= new Date(item.ngay_danh_gia).toLocaleDateString() %></p>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <div class="evaluation-item">
+                                <h2>Chưa có đánh giá</h2>
+                            </div>
+                        <% } %>
+                    </div>
+            </section>
+            <form action="/evaluation" method="POST" class="rate-form">
+                <div class="rate-container">
+                    <input type="hidden" name="product_id" value="<%= product.ma_san_pham %>">
+                    <input type="text" name="name" class="form-input info" placeholder="Your name" required>
+                    <input type="email" name="email" class="form-input info" placeholder="Your email"required>
+                    <textarea class="form-input evaluation" name="content" placeholder="Your Evaluation" required></textarea>
+                    <input type="text" class="form-input date" name="date" placeholder="Example : 2025-03-15 09:30:00 " required>
+                    <input type="text" class="form-input star" name="star" placeholder="Star Of Evaluation" required>
+                    <button class="submit-form">Send</button>
+                </div>
+            </form>
+            <div class="related-products">
+                <h2 class="title">Sản phẩm liên quan</h2>
+                <div class="products-grid">
+                    <% related.forEach(item => { %>
+                        <div class="product-card">
+                            <form action="/product_detail_related_item" method="POST">
+                                <input type="hidden" name="product_id" value="<%= item.ma_san_pham %>">
+                                    <button type="submit" class="phone-click">
+                                        <img src="<%= item.hinh_anh || '/pics/default.jpg' %>" alt="<%= item.ten_san_pham %>">
+                                        <h3 class="price"><%= item.gia.toLocaleString('vi-VN') %> ₫</h3>
+                                        <p><%= item.ten_san_pham %></p>
+                                    </button>                               
+                            </form>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>           
+        </div>
+    </section>
+    <%- include('partials/footer.ejs') %> 
+  <script>
+  </script>
+</body>
+</html>

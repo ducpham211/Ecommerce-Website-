@@ -1,0 +1,135 @@
+<div class="container">
+    <h1>Chỉnh sửa sản phẩm</h1>
+    <form action="/edit-product/<%= product.ma_san_pham %>" method="POST">
+        <div class="form-group">
+            <img src="<%= product.hinh_anh %>" alt="product image" class="product-image">
+        <div class="form-group">
+            <label for="ten_san_pham">Tên sản phẩm</label>
+            <input type="text" id="ten_san_pham" name="ten_san_pham" value="<%= product.ten_san_pham %>" required>
+        </div>
+        <div class="form-group">
+            <label for="gia">Giá (VNĐ)</label>
+            <input type="number" id="gia" name="gia" value="<%= product.gia %>" min="0" step="1000" required>
+        </div>
+        <div class="form-group">
+            <label for="so_luong">Số lượng</label>
+            <input type="number" id="so_luong" name="so_luong" value="<%= product.so_luong %>" min="0" required>
+        </div>
+        <div class="form-group">
+            <label for="tinh_nang_noi_bat">Tính năng nổi bật</label>
+            <textarea id="tinh_nang_noi_bat" name="tinh_nang_noi_bat"><%= product.tinh_nang_noi_bat || '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="cua_hang_co_san">Cửa hàng có sẵn</label>
+            <input type="text" id="cua_hang_co_san" name="cua_hang_co_san" value="<%= product.cua_hang_co_san || '' %>">
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="save-btn">Lưu</button>
+            <a href="/manage-items" class="cancel-btn">Hủy</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-family: 'Libre Baskerville', serif;
+    }
+    .product-image{
+        height: 300px;
+        width: 300px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        object-fit: cover;
+        margin-left: 250px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+        
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+        font-family: 'Libre Baskerville', serif;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-group textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .form-group input::-webkit-outer-spin-button,
+    .form-group input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .form-actions button,
+    .form-actions a {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+        transition: background-color 0.2s;
+        font-family: 'Libre Baskerville', serif;
+    }
+
+    .form-actions .save-btn {
+        background-color: #28a745;
+    }
+
+    .form-actions .save-btn:hover {
+        background-color: #218838;
+    }
+
+    .form-actions .cancel-btn {
+        background-color: #6c757d;
+    }
+
+    .form-actions .cancel-btn:hover {
+        background-color: #5a6268;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px;
+        }
+
+        .form-actions button,
+        .form-actions a {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+    }
+</style>

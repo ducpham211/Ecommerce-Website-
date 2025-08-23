@@ -1,0 +1,206 @@
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Leckerli+One&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Miniver&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+        <link rel="stylesheet" href="style.css">
+        <title>Document</title>
+    </head>
+    <body>  
+        <%- include('partials/header.ejs') %>
+        <main>
+            <section class="hero-section">
+                <div class="hero-content section-content">
+                    <div class="hero-text-content">
+                        <div class="hero-tag">Công Nghệ Hiện Đại</div>
+                        <h1 class="hero-title">Khám Phá Thế Giới <span class="highlight">Công Nghệ</span> Tuyệt Vời</h1>
+                        <p class="hero-description">Chào mừng bạn đến với thiên đường công nghệ - nơi bạn có thể tìm thấy những thiết bị điện tử hiện đại nhất với chất lượng tốt nhất và giá cả phải chăng.</p>
+                        <div class="hero-buttons">
+                            <a href="#" class="primary-button">Mua Ngay</a>
+                            <a href="#" class="secondary-button">Khám Phá</a>
+                        </div>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <i class="fa-solid fa-truck-fast"></i>
+                                <span>Giao hàng miễn phí</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                <span>Bảo hành 24 tháng</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fa-solid fa-headset"></i>
+                                <span>Hỗ trợ 24/7</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="device-showcase">
+                            <div class="device phone">
+                                <i class="fa-solid fa-mobile-screen-button"></i>
+                                <div class="device-pulse"></div>
+                            </div>
+                            <div class="device laptop">
+                                <i class="fa-solid fa-laptop"></i>
+                                <div class="device-pulse"></div>
+                            </div>
+                            <div class="device watch">
+                                <i class="fa-solid fa-clock"></i>
+                                <div class="device-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="tech-particles">
+                            <div class="particle p1"></div>
+                            <div class="particle p2"></div>
+                            <div class="particle p3"></div>
+                            <div class="particle p4"></div>
+                            <div class="particle p5"></div>
+                        </div>
+                        <div class="promo-badge">
+                            <div class="badge-content">
+                                <span class="discount">20%</span>
+                                <span class="badge-text">GIẢM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="about-section" id="about">
+                <div class="section-content">
+                    <div class="about-image-wrapper">
+                        <img src="/pics/about-image.jpg" alt="About" class="about-image">
+                    </div>
+                    <div class="about-details">
+                        <h2 class="section-title">ABOUT US</h2>
+                        <p class="text">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                        Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+                        , when an unknown printer took a galley of type and scrambled it to make a 
+                        type specimen book. It has survived not only five centuries, but also the leap
+                        into electronic typesetting, remaining essentially unchanged.
+                        </p>
+                        <div class="social-link-list">
+                            <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>                           
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="testimonials-section" id="testimonials">
+                <h2 class="section-title">SPECIAL SIRES</h2>
+                <div class="section-content">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                            <div class="testimonials swiper-slide">
+                                <img src="/pics/scroll-bar-1.png" alt="scroll-1" class="scroll-bar-image">
+                                <h3 class="name">...</h3>
+                                <i class="feedback">Lorem Ipsum is simply dummy text of the printing and typesetting industry</i>
+                            </div>
+                            <div class="testimonials swiper-slide">
+                                <img src="/pics/scroll-bar-2.png" alt="scroll-1" class="scroll-bar-image">
+                                <h3 class="name">...</h3>
+                                <i class="feedback">Lorem Ipsum is simply dummy text of the printing and typesetting industry</i>
+                            </div>
+                            <div class="testimonials swiper-slide">
+                                <img src="/pics/scroll-bar-3.png" alt="scroll-1" class="scroll-bar-image">
+                                <h3 class="name">...</h3>
+                                <i class="feedback">Lorem Ipsum is simply dummy text of the printing and typesetting industry</i>
+                            </div>
+                            <div class="testimonials swiper-slide">
+                                <img src="/pics/scroll-bar-4.png" alt="scroll-1" class="scroll-bar-image">
+                                <h3 class="name">...</h3>
+                                <i class="feedback">Lorem Ipsum is simply dummy text of the printing and typesetting industry</i>
+                            </div>
+                        </div>
+                        <!-- Thêm thanh điều hướng và nút điều khiển -->
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+                </section>
+                <h2 class="menu-title">BEST SELLER OF MONTH</h2>
+                <section class="menu-section phone">
+                    <% phones.forEach(phone => { %>
+                        <div class="list-item">
+                            <form action="/product_detail_phone" method="POST">
+                                <input type="hidden" name="ma_san_pham" value="<%= phone.ma_san_pham %>">
+                                <button  type="submit" class="phone-click">
+                                    <img src="<%= phone.hinh_anh %>" alt="<%= phone.ten_san_pham %>" class="item-image">
+                                    <h2 class="name"><%= phone.ten_san_pham %></h2>
+                                    <p class="price"><%= phone.gia %>đ</p>
+                                </button>
+                            </form>
+                        </div>
+                    <% }); %>
+                </section>
+                
+                <section class="menu-section laptop">
+                    <% laptops.forEach(laptop => { %>
+                        <div class="list-item">
+                            <form action="/product_detail_laptop" method="POST">
+                                <input type="hidden" name="ma_san_pham" value="<%= laptop.ma_san_pham %>">
+                                <button type="submit" class="phone-click">
+                                    <img src="<%= laptop.hinh_anh %>" alt="<%= laptop.ten_san_pham %>" class="item-image">
+                                    <h2 class="name"><%= laptop.ten_san_pham %></h2>
+                                    <p class="price"><%= laptop.gia %>đ</p>
+                                </button>
+                            </form>
+                        </div>
+                    <% }); %>
+                </section>
+                
+                <section class="menu-section apple-watch">
+                    <% watches.forEach(watch => { %>
+                        <div class="list-item">
+                            <form action="/product_detail_apple_watch" method="POST">
+                                <input type="hidden" name="ma_san_pham" value="<%= watch.ma_san_pham %>">
+                                <button type="submit" class="phone-click">
+                                    <img src="<%= watch.hinh_anh %>" alt="<%= watch.ten_san_pham %>" class="item-image">
+                                    <h2 class="name"><%= watch.ten_san_pham %></h2>
+                                    <p class="price"><%= watch.gia %>đ</p>
+                                </button>
+                            </form>
+                        </div>
+                    <% }); %>
+                </section>
+            
+        <%- include('partials/footer.ejs') %>  
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>const swiper = new Swiper('.swiper', {
+            loop: true,
+            grabCursor: true,
+            spaceBetween: 25,
+            // If we need pagination
+            pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            dynamicBullets: true,
+            },
+            // Navigation arrows
+            navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+            },  
+            
+            breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            }
+            }
+        });
+        </script>
+    </body>
+    </html>

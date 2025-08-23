@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin cá nhân</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Libre Baskerville", serif;
+        }
+
+        body {
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #4a86e8;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: background 0.3s;
+            gap: 10px;
+        }
+
+        .info-item:hover {
+            background: #e9ecef;
+        }
+
+        .info-item i {
+            font-size: 20px;
+            color: #4a86e8;
+            margin-right: 15px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .info-item span.label {
+            font-weight: bold;
+            color: #555;
+            min-width: 150px;
+        }
+
+        .info-item span.value {
+            color: #333;
+        }
+
+        .back-button {
+            display: block;
+            margin: 20px auto 0;
+            padding: 12px 30px;
+            background: linear-gradient(45deg, #4a86e8, #62c0ff);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .info-item i {
+                margin-bottom: 5px;
+            }
+
+            .info-item span.label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+
+    <div class="container">
+        <h1>Thông tin cá nhân</h1>
+        <div class="profile-info">
+            <!-- Thông tin chung -->
+            <div class="info-item">
+                <i class="fa-solid fa-user"></i>
+                <span class="label">Vai trò:</span>
+                <span class="value"><%= user.vai_tro %></span>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-id-badge"></i>
+                <span class="label">Mã tài khoản:</span>
+                <span class="value"><%= user.ma_tai_khoan %></span>
+            </div>
+            <div class="info-item">
+                <i class="fa-solid fa-user-circle"></i>
+                <span class="label">Tên đăng nhập:</span>
+                <span class="value"><%= user.ten_dang_nhap %></span>
+            </div>
+
+            <!-- Thông tin cụ thể theo vai trò -->
+            <% if (user.vai_tro === 'Khách hàng') { %>
+                <div class="info-item">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="label">Mã khách hàng:</span>
+                    <span class="value"><%= user.ma_khach_hang %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="label">Tên khách hàng:</span>
+                    <span class="value"><%= user.ten_khach_hang %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-map-marker-alt"></i>
+                    <span class="label">Địa chỉ:</span>
+                    <span class="value"><%= user.dia_chi %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="label">Số điện thoại:</span>
+                    <span class="value"><%= user.so_dien_thoai %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-calendar-alt"></i>
+                    <span class="label">Ngày đăng ký:</span>
+                    <span class="value"><%= new Date(user.ngay_dang_ki).toLocaleDateString('vi-VN') %></span>
+                </div>
+            <% } else if (user.vai_tro === 'Nhân viên') { %>
+                <div class="info-item">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="label">Mã nhân viên:</span>
+                    <span class="value"><%= user.ma_nhan_vien %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="label">Tên nhân viên:</span>
+                    <span class="value"><%= user.ten_nhan_vien %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-calendar-alt"></i>
+                    <span class="label">Ngày vào làm:</span>
+                    <span class="value"><%= new Date(user.ngay_vao_lam).toLocaleDateString('vi-VN') %></span>
+                </div>
+            <% } else if (user.vai_tro === 'Quản lý') { %>
+                <div class="info-item">
+                    <i class="fa-solid fa-id-card"></i>
+                    <span class="label">Mã quản lý:</span>
+                    <span class="value"><%= user.ma_quan_li %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="label">Tên quản lý:</span>
+                    <span class="value"><%= user.ten_quan_li %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-map-marker-alt"></i>
+                    <span class="label">Địa chỉ:</span>
+                    <span class="value"><%= user.dia_chi %></span>
+                </div>
+                <div class="info-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="label">Số điện thoại:</span>
+                    <span class="value"><%= user.so_dien_thoai %></span>
+                </div>
+            <% } %>
+        </div>
+        <a href="/home" class="back-button">Quay lại trang chủ</a>
+    </div>
+
+</body>
+</html>

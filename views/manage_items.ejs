@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách mặt hàng - E-Devices Store</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .product-card .price {
+            color: #e44d26;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .product-card .brand {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+
+        .product-card .feature {
+            color: #555;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+
+        .edit_product {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .edit_product a,
+        .edit_product button {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: #fff;
+            transition: background-color 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .edit_product .add-btn {
+            background-color: #28a745;
+        }
+
+        .edit_product .add-btn:hover {
+            background-color: #218838;
+        }
+
+        .edit_product .edit-btn {
+            background-color: #007bff;
+        }
+
+        .edit_product .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .edit_product .delete-btn {
+            background-color: #dc3545;
+        }
+
+        .edit_product .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .edit_product a,
+            .edit_product button {
+                padding: 6px 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <div class="container">
+        <h1>Danh sách mặt hàng</h1>
+        <% if (products && products.length > 0) { %>
+            <div class="product-grid">
+                <% products.forEach(product => { %>
+                    <div class="product-card">
+                        <% if (product.hinh_anh) { %>
+                            <img src="<%= product.hinh_anh %>" alt="<%= product.ten_san_pham %>">
+                        <% } else { %>
+                            <img src="/images/placeholder.jpg" alt="No image">
+                        <% } %>
+                        <h3><%= product.ten_san_pham %></h3>
+                        <p class="price"><%= product.gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) %></p>
+                        <p class="brand">Thương hiệu: <%= product.thuong_hieu || 'Không xác định' %></p>
+                        <p class="feature"><%= product.tinh_nang_noi_bat || 'Không có tính năng nổi bật' %></p>
+                        <p class="quantity">Số lượng: <%= product.so_luong || '0' %></p>
+                        <div class="edit_product">
+                            <button class="add-btn" onclick="addProductQuantity('<%= product.ma_san_pham %>')">Thêm</button>
+                            <a href="/edit-product-form/<%= product.ma_san_pham %>" class="edit-btn">Sửa</a>
+                            <a href="/delete-product/<%= product.ma_san_pham %>" class="delete-btn" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')">Xóa</a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <p style="text-align: center; color: #666;">Không có sản phẩm nào để hiển thị.</p>
+        <% } %>
+    </div>
+
+    <%- include('partials/footer.ejs') %>
+
+    <script>
+        async function addProductQuantity(ma_san_pham) {
+            // Hiển thị hộp thoại hỏi số lượng
+            const quantity = prompt("Bạn muốn thêm bao nhiêu sản phẩm?");
+            
+            // Kiểm tra nếu người dùng bấm Cancel hoặc không nhập gì
+            if (quantity === null || quantity.trim() === "") {
+                alert("Bạn chưa nhập số lượng!");
+                return;
+            }
+
+            // Chuyển đổi số lượng thành số nguyên
+            const parsedQuantity = parseInt(quantity);
+
+            // Kiểm tra số lượng hợp lệ
+            if (isNaN(parsedQuantity) || parsedQuantity <= 0) {
+                alert("Số lượng phải là một số nguyên dương!");
+                return;
+            }
+
+            try {
+                // Gửi yêu cầu POST đến endpoint
+                const response = await fetch(`/add-product-quantity/${ma_san_pham}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ quantity: parsedQuantity })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert("Thêm số lượng sản phẩm thành công!");
+                    window.location.reload(); // Làm mới trang để cập nhật số lượng
+                } else {
+                    alert(result.message || "Lỗi khi thêm số lượng sản phẩm!");
+                }
+            } catch (error) {
+                console.error("Lỗi:", error);
+                alert("Đã xảy ra lỗi khi thêm số lượng sản phẩm!");
+            }
+        }
+    </script>
+</body>
+</html>

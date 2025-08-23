@@ -1,0 +1,44 @@
+* {
+    font-family: "Baskerville", serif;
+    font-weight: 400;
+    font-style: normal;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+.social-link-list{
+    display:flex;
+    gap:25px;
+    justify-content: center;
+} 
+
+.social-link-list .social-link{
+    font-size:1.5rem;
+}
+
+.social-link-list .social-link:hover{
+    color:#f3961c;
+    transition : all 0.3s ease;
+    transform: translateY(-5px);
+}
+
+.social-link-list .social-link:active{
+    transition : transform 0.3s ease;
+    transform : translateY(0);
+}
+.footer-section{
+    background: rgb(227, 222, 216);
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.footer-section .section-content{
+    width: 2000px;
+    display:flex;
+    justify-content:space-evenly;
+    align-items: center;
+}

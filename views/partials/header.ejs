@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleForHeader.css">
+    <title>E-Devices Store</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        .nav-item, .nav-actions .user-container {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            border-radius: 8px;
+            padding: 12px 0;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .user-dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 5px;
+            padding: 10px 0;
+            right: 0;
+        }
+
+        .nav-item:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .user-container:hover .user-dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li, .user-dropdown-menu li {
+            list-style: none;
+        }
+
+        .dropdown-menu a {
+            color: #333;
+            padding: 10px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .user-dropdown-menu a {
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
+
+        .user-dropdown-menu a:hover {
+            background-color: #f1f1f1;
+        }
+
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                min-width: 180px;
+                font-size: 0.9rem;
+            }
+
+            .dropdown-menu a {
+                padding: 8px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar section-content">
+            <div class="nav-logo">
+                <a href="/home" class="logo-link">
+                    <div class="logo-icon">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h2 class="shopName">E-Devices Store</h2>
+                </a>
+            </div>
+            <div class="nav-container">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="/home" class="nav-link active">
+                            <span class="nav-text">Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">
+                            <span class="nav-text">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <span class="nav-text">Products</span>
+                        </a>
+                        <ul class="dropdown-menu" id="product-categories">
+                            <!-- Product categories will be loaded here dynamically -->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/contact" class="nav-link">
+                            <span class="nav-text">Contact</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="nav-actions">
+                    <form action="/search" method="get" class="search-form">
+                        <input type="text" name="q" placeholder="Tìm kiếm..." class="search-input">
+                        <button type="submit" class="search-btn">
+                            <i class="fa-solid fa-search"></i>
+                        </button>
+                    </form>
+                    <form action="/shopping_cart" method="POST" class="cart-form">                        
+                        <button type="submit" class="cart-btn">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </button>
+                    </form>
+                    <div class="user-container">
+                        <button class="user">
+                            <i class="fa-solid fa-user"></i>
+                        </button>
+                        <ul class="user-dropdown-menu" id="user-options">
+                            <!-- User options will be loaded here dynamically -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+
+            // Load product categories
+            const productCategories = [
+                { id: 1, name: "Điện thoại", url: "/menu_categories_dienThoai" },
+                { id: 2, name: "Laptop", url: "/menu_categories_Laptop" },
+                { id: 3, name: "Máy tính bảng", url: "/menu_categories_mayTinhBang" },
+                { id: 4, name: "Phụ kiện", url: "/menu_categories_phuKien" },
+                { id: 5, name: "Thiết bị thông minh", url: "/menu_categories_thietBiThongMinh" }
+            ];
+
+            // Populate product categories dropdown
+            const categoryDropdown = document.getElementById('product-categories');
+            if (categoryDropdown) {
+                productCategories.forEach(category => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = category.url;
+                    link.textContent = category.name;
+                    listItem.appendChild(link);
+                    categoryDropdown.appendChild(listItem);
+                });
+            } else {
+                console.error('Không tìm thấy product-categories');
+            }
+
+            // Load user options
+            const userOptions = [
+                { id: 1, name: "Hồ sơ", url: "/profile" },
+                { id: 2, name: "Quản lí kho", url: "/manage-items" },
+                { id: 3, name: "Đăng xuất", url: "/logout" }
+            ];
+
+            // Populate user options dropdown
+            const userDropdown = document.getElementById('user-options');
+            if (userDropdown) {
+                userOptions.forEach(option => {
+                    const listItem = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = option.url;
+                    link.textContent = option.name;
+                    listItem.appendChild(link);
+                    userDropdown.appendChild(listItem);
+                });
+            } else {
+                console.error('Không tìm thấy user-options');
+            }
+
+            // Mobile menu toggle
+            if (mobileMenuBtn && navMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+
+                // Close menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!event.target.closest('.nav-container') && navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                    }
+                });
+            }
+
+            // Add active class to current page link
+            const currentLocation = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentLocation) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styleForShoppingCart.css">
+
+</head>
+<body>
+        <%- include('partials/header.ejs') %>
+    <h1>Giỏ hàng của bạn</h1>
+    <div class="container">
+        <div class="cart-container">
+            <% if (cartItems && cartItems.length > 0) { %>
+                <div class="cart-header">
+                    <div>Hình ảnh</div>
+                    <div>Sản phẩm</div>
+                    <div>Đơn giá</div>
+                    <div>Số lượng</div>
+                    <div>Thành tiền</div>
+                    <div></div>
+                </div>
+
+                <% cartItems.forEach(item => { %>
+                    <div class="cart-item">
+                        <div>
+                            <img src="<%= item.hinh_anh %>" alt="<%= item.ten_san_pham %>" class="product-image">
+                        </div>
+                        <div class="product-name"><%= item.ten_san_pham %></div>
+                        <div class="item-price"><%= item.gia.toLocaleString('vi-VN') %> ₫</div>
+                        <div>
+                            <form action="/update_cart_quantity" method="POST" class="quantity-control">
+                                <input type="hidden" name="cartItemId" value="<%= item.ma_san_pham %>">
+                                <button type="button" class="quantity-btn" onclick="this.form.quantity.value = Math.max(0, parseInt(this.form.quantity.value) - 1); this.form.submit();">-</button>
+                                <input type="number" name="quantity" value="<%= item.so_luong %>" min="1" class="quantity-input">
+                                <button type="button" class="quantity-btn" onclick="this.form.quantity.value = parseInt(this.form.quantity.value) + 1; this.form.submit();">+</button>
+                            </form>
+                        </div>
+                        <div class="item-total"><%= (item.gia * item.so_luong).toLocaleString('vi-VN') %> ₫</div>
+                        <div>
+                            <form action="/remove_cart_item" method="POST">
+                                <input type="hidden" name="cartItemId" value="<%= item.ma_san_pham %>">
+                                <button type="submit" class="remove-btn"><i class="fas fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                <% }); %>
+                <div class="cart-footer">
+                    <div class="cart-total">Tổng tiền: <%= totalPrice.toLocaleString('vi-VN') %> ₫</div>
+                    <div class="action-buttons">
+                        <a href="/home" class="continue-shopping">Tiếp tục mua hàng</a>
+                        <a href="/payment" class="checkout-btn">Thanh toán</a>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h2>Giỏ hàng của bạn đang trống</h2>
+                    <p>Thêm sản phẩm vào giỏ hàng để tiếp tục</p>
+                    <a href="/home">Quay lại trang chủ</a>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        // Function to handle quantity update via AJAX (optional enhancement)
+        function updateQuantity(cartItemId, quantity) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/update_cart_quantity';
+            
+            const idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = 'cartItemId';
+            idInput.value = cartItemId;
+            
+            const quantityInput = document.createElement('input');
+            quantityInput.type = 'hidden';
+            quantityInput.name = 'quantity';
+            quantityInput.value = quantity;
+            
+            form.appendChild(idInput);
+            form.appendChild(quantityInput);
+            document.body.appendChild(form);
+            form.submit();
+        }
+        
+    </script>
+</body>
+</html>
